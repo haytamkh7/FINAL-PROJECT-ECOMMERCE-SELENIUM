@@ -68,3 +68,27 @@ def test_register(driver):
         assert driver.find_element(By.CSS_SELECTOR,
                                    "#auth-error-message-box > div > div > ul > li > span").is_displayed()
         time.sleep(4)
+
+    def test_error_message_mandatory_fields(driver):
+        # Open the web page
+        driver.get('https://www.amazon.com/')
+        time.sleep(4)
+        # Click sign in button
+        driver.find_element(By.CSS_SELECTOR, "#nav-link-accountList").click()
+        time.sleep(4)
+        # Fill the email input with email address
+        driver.find_element(By.CSS_SELECTOR, "#ap_email").send_keys("imaginaryemail@email.liar")
+        time.sleep(4)
+        # Click create account button
+        driver.find_element(By.CSS_SELECTOR, "#createAccountSubmit").click()
+        time.sleep(4)
+        # Leave the mandatory fields empty and click the continue button
+        driver.find_element(By.CSS_SELECTOR, "#continue").click()
+        time.sleep(4)
+        # Verifying error messages has been displayed
+        # Checking the full name field (error message)
+        assert driver.find_element(By.CSS_SELECTOR, "#auth-customerName-missing-alert > div > div").is_displayed()
+        # Checking the email/mobile field (error message)
+        assert driver.find_element(By.CSS_SELECTOR, "#auth-email-missing-alert > div > div").is_displayed()
+        # Checking the password field (error message)
+        assert driver.find_element(By.CSS_SELECTOR, "#ap_password").is_displayed()
