@@ -254,3 +254,32 @@ def test_register(driver):
         # Click 'Use this address' button
         driver.find_element(By.CSS_SELECTOR, "#address-ui-widgets-form-submit-button > span > input").click()
         time.sleep(2)
+
+    def test_add_to_wishlist_signed_out(driver):
+        # Open the web page
+        driver.get('https://www.amazon.com/')
+        time.sleep(4)
+        # Click 'All' button
+        driver.find_element(By.CSS_SELECTOR, "#nav-hamburger-menu").click()
+        time.sleep(4)
+        # Click 'See All' button
+        driver.find_element(By.CSS_SELECTOR,
+                            "#hmenu-content > ul.hmenu.hmenu-visible > li:nth-child(12) > a.hmenu-item.hmenu-compressed-btn").click()
+        time.sleep(4)
+        # Click 'Women's Fashion' button
+        driver.find_element(By.CSS_SELECTOR,
+                            "#hmenu-content > ul.hmenu.hmenu-visible > ul:nth-child(11) > li:nth-child(5) > a").click()
+        time.sleep(4)
+        # Click 'Handbags' button
+        driver.find_element(By.CSS_SELECTOR,
+                            "#hmenu-content > ul.hmenu.hmenu-visible.hmenu-translateX > li:nth-child(7) > a").click()
+        time.sleep(4)
+        # Click on the second product
+        driver.find_element(By.CSS_SELECTOR,
+                            "#search > div.s-desktop-width-max.s-desktop-content.s-opposite-dir.sg-row > div.s-matching-dir.sg-col-16-of-20.sg-col.sg-col-8-of-12.sg-col-12-of-16 > div > span:nth-child(4) > div.s-main-slot.s-result-list.s-search-results.sg-row > div:nth-child(3) > div > div > div > div > div.s-product-image-container.aok-relative.s-image-overlay-grey.s-text-center.s-padding-left-small.s-padding-right-small.s-spacing-small.s-height-equalized > span > a > div > img").click()
+        time.sleep(4)
+        # Click 'Add to List' button
+        driver.find_element(By.CSS_SELECTOR, "#wishListMainButton > span > a").click()
+        time.sleep(4)
+        # Verify that the current page is the sign-in page
+        assert driver.title == "Amazon Sign-In"
