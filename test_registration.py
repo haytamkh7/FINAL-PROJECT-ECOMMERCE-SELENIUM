@@ -50,3 +50,21 @@ def test_register(driver):
     time.sleep(4)
     # Click the continue button
     # driver.find_element(By.CSS_SELECTOR, "#continue").click()
+
+    def test_invalid_email_login(driver):
+        # Open the web page
+        driver.get('https://www.amazon.com/')
+        time.sleep(4)
+        # Click sign in button
+        driver.find_element(By.CSS_SELECTOR, "#nav-link-accountList").click()
+        time.sleep(4)
+        # Fill the email input with invalid email address
+        driver.find_element(By.CSS_SELECTOR, "#ap_email").send_keys("imaginaryemail@email.liar")
+        time.sleep(4)
+        # Click the continue button
+        driver.find_element(By.CSS_SELECTOR, "#continue").click()
+        time.sleep(4)
+        # Validate that the error message is displayed
+        assert driver.find_element(By.CSS_SELECTOR,
+                                   "#auth-error-message-box > div > div > ul > li > span").is_displayed()
+        time.sleep(4)
