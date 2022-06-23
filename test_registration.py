@@ -126,3 +126,37 @@ def test_register(driver):
         assert driver.find_element(By.CSS_SELECTOR, "#auth-email-invalid-claim-alert > div > div").is_displayed()
         # Checking the invalid password error message
         assert driver.find_element(By.CSS_SELECTOR, "#auth-password-invalid-password-alert > div > div").is_displayed()
+
+    def test_search_product(driver):
+        # Open the web page
+        driver.get('https://www.amazon.com/')
+        time.sleep(4)
+        # Click 'All' button
+        driver.find_element(By.CSS_SELECTOR, "#nav-hamburger-menu").click()
+        time.sleep(4)
+        # Click 'See All' button
+        driver.find_element(By.CSS_SELECTOR,
+                            "#hmenu-content > ul.hmenu.hmenu-visible > li:nth-child(12) > a.hmenu-item.hmenu-compressed-btn").click()
+        time.sleep(4)
+        # Click 'Women's Fashion' button
+        driver.find_element(By.CSS_SELECTOR,
+                            "#hmenu-content > ul.hmenu.hmenu-visible > ul:nth-child(11) > li:nth-child(5) > a").click()
+        time.sleep(4)
+        # Click 'Handbags' button
+        driver.find_element(By.CSS_SELECTOR,
+                            "#hmenu-content > ul.hmenu.hmenu-visible.hmenu-translateX > li:nth-child(7) > a").click()
+        time.sleep(4)
+        # Get the name of the first product displayed on page
+        first_product_name = driver.find_element(By.CSS_SELECTOR,
+                                                 "#search > div.s-desktop-width-max.s-desktop-content.s-opposite-dir.sg-row > div.s-matching-dir.sg-col-16-of-20.sg-col.sg-col-8-of-12.sg-col-12-of-16 > div > span:nth-child(4) > div.s-main-slot.s-result-list.s-search-results.sg-row > div:nth-child(2) > div > div > div > div > div.a-section.a-spacing-small.s-padding-left-small.s-padding-right-small > div.a-section.a-spacing-none.a-spacing-top-small.s-title-instructions-style > h2 > a > span").text
+        # Search for first_product_name in the search field
+        driver.find_element(By.CSS_SELECTOR, "#twotabsearchtextbox").send_keys(first_product_name)
+        time.sleep(3)
+        # Click the search button
+        driver.find_element(By.CSS_SELECTOR, "#nav-search-submit-button").click()
+        time.sleep(3)
+        # Get the name of the first product name after the search
+        new_first_product_name = driver.find_element(By.CSS_SELECTOR,
+                                                     "#search > div.s-desktop-width-max.s-desktop-content.s-opposite-dir.sg-row > div.s-matching-dir.sg-col-16-of-20.sg-col.sg-col-8-of-12.sg-col-12-of-16 > div > span:nth-child(4) > div.s-main-slot.s-result-list.s-search-results.sg-row > div:nth-child(2) > div > div > div > div > div.a-section.a-spacing-small.s-padding-left-small.s-padding-right-small > div.a-section.a-spacing-none.a-spacing-top-small.s-title-instructions-style > h2 > a > span").text
+        # Compare first product name before the search with the one after the search
+        assert first_product_name == new_first_product_name
