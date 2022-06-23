@@ -92,3 +92,37 @@ def test_register(driver):
         assert driver.find_element(By.CSS_SELECTOR, "#auth-email-missing-alert > div > div").is_displayed()
         # Checking the password field (error message)
         assert driver.find_element(By.CSS_SELECTOR, "#ap_password").is_displayed()
+
+    def test_error_message_incorrect_values(driver):
+        # Open the web page
+        driver.get('https://www.amazon.com/')
+        time.sleep(4)
+        # Click sign in button
+        driver.find_element(By.CSS_SELECTOR, "#nav-link-accountList").click()
+        time.sleep(4)
+        # Fill the email input with email address
+        driver.find_element(By.CSS_SELECTOR, "#ap_email").send_keys("imaginaryemail@email.liar")
+        time.sleep(4)
+        # Click create account button
+        driver.find_element(By.CSS_SELECTOR, "#createAccountSubmit").click()
+        time.sleep(4)
+        # Fill the full name input with wrong/invalid value (for instance: a number)
+        driver.find_element(By.CSS_SELECTOR, "#ap_customer_name").send_keys("9098987")
+        time.sleep(4)
+        # Fill the email input with incorrect email address
+        driver.find_element(By.CSS_SELECTOR, "#ap_email").send_keys("imaginaryemail- 9@emailliar")
+        time.sleep(4)
+        # Fill the password input with wrong/invalid password
+        driver.find_element(By.CSS_SELECTOR, "#ap_password").send_keys("short")
+        time.sleep(4)
+        # Repeat-password input with the same wrong/invalid password
+        driver.find_element(By.CSS_SELECTOR, "#ap_password_check").send_keys("short")
+        time.sleep(4)
+        # Click the continue button
+        driver.find_element(By.CSS_SELECTOR, "#continue").click()
+        time.sleep(4)
+        # Verify error messages for entering incorrect values in fields are displayed
+        # Checking the incorrect email/mobile error message
+        assert driver.find_element(By.CSS_SELECTOR, "#auth-email-invalid-claim-alert > div > div").is_displayed()
+        # Checking the invalid password error message
+        assert driver.find_element(By.CSS_SELECTOR, "#auth-password-invalid-password-alert > div > div").is_displayed()
