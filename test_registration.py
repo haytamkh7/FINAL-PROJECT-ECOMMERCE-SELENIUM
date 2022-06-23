@@ -160,3 +160,97 @@ def test_register(driver):
                                                      "#search > div.s-desktop-width-max.s-desktop-content.s-opposite-dir.sg-row > div.s-matching-dir.sg-col-16-of-20.sg-col.sg-col-8-of-12.sg-col-12-of-16 > div > span:nth-child(4) > div.s-main-slot.s-result-list.s-search-results.sg-row > div:nth-child(2) > div > div > div > div > div.a-section.a-spacing-small.s-padding-left-small.s-padding-right-small > div.a-section.a-spacing-none.a-spacing-top-small.s-title-instructions-style > h2 > a > span").text
         # Compare first product name before the search with the one after the search
         assert first_product_name == new_first_product_name
+
+    def test_end_to_end_buy_product(driver):
+        # Email: tomeutube@gmail.com
+        # Password: testing_909$
+
+        # Open the web page
+        driver.get('https://www.amazon.com/')
+        time.sleep(4)
+        # Click sign in button
+        driver.find_element(By.CSS_SELECTOR, "#nav-link-accountList").click()
+        time.sleep(4)
+        # Fill the email input with email address
+        driver.find_element(By.CSS_SELECTOR, "#ap_email").send_keys("tomeutube@gmail.com")
+        time.sleep(4)
+        # Click the continue button
+        driver.find_element(By.CSS_SELECTOR, "#continue").click()
+        time.sleep(4)
+        # Fill the password input
+        driver.find_element(By.CSS_SELECTOR, "#ap_password").send_keys("testing_909$")
+        time.sleep(4)
+        # Click the 'Sign-in' button
+        driver.find_element(By.CSS_SELECTOR, "#signInSubmit").click()
+        time.sleep(4)
+        #  Bypass adding mobile number
+        # driver.find_element(By.CSS_SELECTOR, "#ap-account-fixup-phone-skip-link").click()
+        # Click 'All' button
+        driver.find_element(By.CSS_SELECTOR, "#nav-hamburger-menu").click()
+        time.sleep(4)
+        # Click 'See All' button
+        driver.find_element(By.CSS_SELECTOR,
+                            "#hmenu-content > ul.hmenu.hmenu-visible > li:nth-child(12) > a.hmenu-item.hmenu-compressed-btn").click()
+        time.sleep(4)
+        # Click 'Women's Fashion' button
+        driver.find_element(By.CSS_SELECTOR,
+                            "#hmenu-content > ul.hmenu.hmenu-visible > ul:nth-child(11) > li:nth-child(5) > a").click()
+        time.sleep(4)
+        # Click 'Handbags' button
+        driver.find_element(By.CSS_SELECTOR,
+                            "#hmenu-content > ul.hmenu.hmenu-visible.hmenu-translateX > li:nth-child(7) > a").click()
+        time.sleep(4)
+        # Click on the second product
+        driver.find_element(By.CSS_SELECTOR,
+                            "#search > div.s-desktop-width-max.s-desktop-content.s-opposite-dir.sg-row > div.s-matching-dir.sg-col-16-of-20.sg-col.sg-col-8-of-12.sg-col-12-of-16 > div > span:nth-child(4) > div.s-main-slot.s-result-list.s-search-results.sg-row > div:nth-child(3) > div > div > div > div > div.s-product-image-container.aok-relative.s-image-overlay-grey.s-text-center.s-padding-left-small.s-padding-right-small.s-spacing-small.s-height-equalized > span > a > div > img").click()
+        time.sleep(4)
+        # Change quantity to 2
+        driver.find_element(By.CSS_SELECTOR, "#a-autoid-9-announce").click()
+        time.sleep(2)
+        driver.find_element(By.CSS_SELECTOR, "#quantity_1").click()
+        time.sleep(2)
+        # Choosing custom color
+        driver.find_element(By.CSS_SELECTOR, "#color_name_0 > span > input").click()
+        time.sleep(4)
+        # Click 'Add to Cart' button
+        driver.find_element(By.CSS_SELECTOR, "#add-to-cart-button").click()
+        time.sleep(2)
+        # Click 'Proceed to checkout' button
+        driver.find_element(By.CSS_SELECTOR, "#sc-buy-box-ptc-button > span > input").click()
+        time.sleep(2)
+        # Filling the address data
+        # Country/Region
+        driver.find_element(By.CSS_SELECTOR, "#address-ui-widgets-countryCode > span > span").click()
+        driver.find_element(By.CSS_SELECTOR, r"#\31 _dropdown_combobox > li:nth-child(108) > a").click()
+        time.sleep(2)
+        # Full Name
+        full_name = driver.find_element(By.CSS_SELECTOR, "#address-ui-widgets-enterAddressFullName")
+        full_name.send_keys("Jeff Smith")
+        time.sleep(2)
+        # Phone number
+        phone_number = driver.find_element(By.CSS_SELECTOR, "#address-ui-widgets-enterAddressPhoneNumber")
+        phone_number.send_keys("0506501245")
+        time.sleep(2)
+        # Address
+        address = driver.find_element(By.CSS_SELECTOR, "#address-ui-widgets-enterAddressLine1")
+        address.send_keys("Ibillin, Main Street, 3001200")
+        time.sleep(2)
+        # City
+        city = driver.find_element(By.CSS_SELECTOR, "#address-ui-widgets-enterAddressCity")
+        city.send_keys("Ibillin")
+        time.sleep(2)
+        # State
+        state = driver.find_element(By.CSS_SELECTOR, "#address-ui-widgets-enterAddressStateOrRegion")
+        state.send_keys("IL")
+        time.sleep(2)
+        # Zip Code
+        zip_code = driver.find_element(By.CSS_SELECTOR, "#address-ui-widgets-enterAddressPostalCode")
+        zip_code.send_keys("3001200")
+        time.sleep(2)
+        # Phone number
+        phone_num = driver.find_element(By.CSS_SELECTOR, "#address-ui-widgets-enterAddressPhoneNumber")
+        phone_num.send_keys("0506501245")
+        time.sleep(2)
+        # Click 'Use this address' button
+        driver.find_element(By.CSS_SELECTOR, "#address-ui-widgets-form-submit-button > span > input").click()
+        time.sleep(2)
