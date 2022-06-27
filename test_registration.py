@@ -74,9 +74,6 @@ def test_error_message_mandatory_fields(driver):
     # Click sign in button
     driver.find_element(By.CSS_SELECTOR, "#nav-link-accountList").click()
     time.sleep(4)
-    # Fill the email input with email address
-    driver.find_element(By.CSS_SELECTOR, "#ap_email").send_keys("imaginaryemail@email.liar")
-    time.sleep(4)
     # Click create account button
     driver.find_element(By.CSS_SELECTOR, "#createAccountSubmit").click()
     time.sleep(4)
@@ -98,9 +95,6 @@ def test_error_message_incorrect_values(driver):
     time.sleep(4)
     # Click sign in button
     driver.find_element(By.CSS_SELECTOR, "#nav-link-accountList").click()
-    time.sleep(4)
-    # Fill the email input with email address
-    driver.find_element(By.CSS_SELECTOR, "#ap_email").send_keys("imaginaryemail@email.liar")
     time.sleep(4)
     # Click create account button
     driver.find_element(By.CSS_SELECTOR, "#createAccountSubmit").click()
