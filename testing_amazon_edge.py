@@ -30,7 +30,7 @@ def test_register(driver):
     driver.find_element(By.CSS_SELECTOR, "#ap_customer_name").send_keys("Jeff Smith")
     time.sleep(4)
     # Mobile/Email input
-    driver.find_element(By.CSS_SELECTOR, "#ap_email").send_keys("tomeutube@gmail.com")
+    driver.find_element(By.CSS_SELECTOR, "#ap_email").send_keys("sajobi3111@meidir.com")
     time.sleep(4)
     # Password input
     driver.find_element(By.CSS_SELECTOR, "#ap_password").send_keys("testing_909$")
@@ -40,6 +40,9 @@ def test_register(driver):
     time.sleep(4)
     # Click the continue button
     driver.find_element(By.CSS_SELECTOR, "#continue").click()
+    time.sleep(4)
+    # Check authentication page
+    assert driver.title == "Authentication required"
 
 
 def test_invalid_email_login(driver):
@@ -144,8 +147,8 @@ def test_search_product(driver):
     driver.find_element(By.CSS_SELECTOR, "#nav-search-submit-button").click()
     time.sleep(3)
     # Get the name of the first product name after the search
-    new_first_product_name = driver.find_element(By.XPATH,
-                                                 "/html/body/div[1]/div[2]/div[1]/div[1]/div/span[3]/div[2]/div[2]/div/div/div/div/div/div/div[3]/div[1]/h2/a/span").text
+    new_first_product_name = driver.find_element(By.CSS_SELECTOR,
+                                                 "#search > div.s-desktop-width-max.s-desktop-content.s-opposite-dir.sg-row > div.s-matching-dir.sg-col-16-of-20.sg-col.sg-col-8-of-12.sg-col-12-of-16 > div > span:nth-child(4) > div.s-main-slot.s-result-list.s-search-results.sg-row > div:nth-child(2) > div > div > div > div > div > div > div.a-section.a-spacing-small.s-padding-left-small.s-padding-right-small > div.a-section.a-spacing-none.a-spacing-top-small.s-title-instructions-style > h2 > a > span").text
     # Compare first product name before the search with the one after the search
     assert first_product_name == new_first_product_name
 

@@ -31,7 +31,7 @@ def test_register(driver):
     driver.find_element(By.CSS_SELECTOR, "#ap_customer_name").send_keys("Jeff Smith")
     time.sleep(4)
     # Mobile/Email input
-    driver.find_element(By.CSS_SELECTOR, "#ap_email").send_keys("tomeutube@gmail.com")
+    driver.find_element(By.CSS_SELECTOR, "#ap_email").send_keys("sajobi3111@meidir.com")
     time.sleep(4)
     # Password input
     driver.find_element(By.CSS_SELECTOR, "#ap_password").send_keys("testing_909$")
@@ -41,6 +41,9 @@ def test_register(driver):
     time.sleep(4)
     # Click the continue button
     driver.find_element(By.CSS_SELECTOR, "#continue").click()
+    time.sleep(4)
+    # Check authentication page
+    assert driver.title == "Authentication required"
 
 
 def test_invalid_email_login(driver):
