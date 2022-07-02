@@ -5,4 +5,4 @@ For instance:
 - Registering process
 - Logging in with invalid email address
 - Signing-up with incorrect values in the signing-up form fields
-etc...
+- etc..
