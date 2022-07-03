@@ -1,14 +1,41 @@
-import time
+# import time
+#
+# import pytest
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+#
+#
+# @pytest.fixture()
+# def driver():
+#     firefox_driver_library = "./geckodriver.exe"
+#     driver = webdriver.Firefox()
+#     yield driver
+#     driver.close()
 
 import pytest
+
 from selenium import webdriver
+from selenium.webdriver import Keys
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.options import Options as FireFoxOptions
+from selenium.webdriver.firefox.service import Service as FirefoxService
+
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+import time
 
 
 @pytest.fixture()
 def driver():
-    firefox_driver_library = "./geckodriver.exe"
-    driver = webdriver.Firefox()
+    dc = {
+        "browserName": "firefox",
+        "platformName": "Windows 11"
+    }
+
+    # selenium grid standAlone
+    driver = webdriver.Remote("http://localhost:4444", dc)
+
     yield driver
     driver.close()
 
@@ -331,7 +358,8 @@ def test_change_quantity_price(driver):
                         "/html/body/div[1]/div[2]/div[1]/div[1]/div/span[3]/div[2]/div[2]/div/div/div/div/div[2]/span/a/div").click()
     time.sleep(4)
     # Choose quantity 1
-    driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div[1]/div[9]/div[1]/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/div/div/form/div/div/div/div/div[8]/div/div/span/div/div/span/span/span/span/span[1]").click()
+    driver.find_element(By.XPATH,
+                        "/html/body/div[1]/div[2]/div[1]/div[9]/div[1]/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/div/div/form/div/div/div/div/div[8]/div/div/span/div/div/span/span/span/span/span[1]").click()
     time.sleep(4)
     driver.find_element(By.XPATH, "/html/body/div[4]/div/div/ul/li[1]/a").click()
     time.sleep(4)
@@ -347,12 +375,15 @@ def test_change_quantity_price(driver):
     driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div/div[1]/div[2]/div/span/span/a").click()
     time.sleep(4)
     # Save the old price, before changing quantity
-    old_price = driver.find_element(By.XPATH, "/html/body/div[1]/div[4]/div[1]/div[3]/div/div[1]/div[2]/div/form/div/div/div[1]/span[2]/span").text
+    old_price = driver.find_element(By.XPATH,
+                                    "/html/body/div[1]/div[4]/div[1]/div[3]/div/div[1]/div[2]/div/form/div/div/div[1]/span[2]/span").text
     # Choose quantity 2
-    driver.find_element(By.XPATH, "/html/body/div[1]/div[4]/div[1]/div[3]/div/div[2]/div[4]/div/form/div[2]/div[3]/div[4]/div/div[1]/div/div/div[2]/div[1]/span[1]/span/span[1]/span/span/span/span").click()
+    driver.find_element(By.XPATH,
+                        "/html/body/div[1]/div[4]/div[1]/div[3]/div/div[2]/div[4]/div/form/div[2]/div[3]/div[4]/div/div[1]/div/div/div[2]/div[1]/span[1]/span/span[1]/span/span/span/span").click()
     time.sleep(4)
     driver.find_element(By.XPATH, "/html/body/div[5]/div/div/ul/li[3]/a").click()
     time.sleep(4)
     # Save the new price, after changing quantity
-    new_price = driver.find_element(By.XPATH, "/html/body/div[1]/div[4]/div[1]/div[3]/div/div[1]/div[2]/div/form/div/div/div[1]/span[2]/span").text
+    new_price = driver.find_element(By.XPATH,
+                                    "/html/body/div[1]/div[4]/div[1]/div[3]/div/div[1]/div[2]/div/form/div/div/div[1]/span[2]/span").text
     assert float(new_price[1:]) > float(old_price[1:])  # Use[1:]  to skip the dollar sign
